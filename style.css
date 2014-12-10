@@ -1,3 +1,10 @@
 body{
   background: aliceblue;
 }
+div{
+  /*height: 20px;*/
+  /*width: 30px;*/
+  border: 1px dashed blue;
+  margin: 10px;
+  padding: 20px;
+}
