@@ -1,7 +1,7 @@
 describe("Backbone Model tests", function(){
 
   beforeEach(function() {
-     var Balloon = new Backbone.RelationalModel({
+     var Balloon = new Backbone.RelationalModel.extend({
         type: "balloon"
       });
    });
