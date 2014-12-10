@@ -26,3 +26,7 @@ r {instance: r, reverseRelation: Object, options: Object, key: "balloon", keySou
 
 var myIndex = this.model.collection.indexOf(this.model);
 var nextModel = this.model.collection.at(myIndex+1);
+
+
+offset() and position() both give current elemenet positions as far too high off the page
+// var currentY = that.$el.position().top;

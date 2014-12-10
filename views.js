@@ -8,6 +8,7 @@ app.BalloonView = Backbone.View.extend({
   },
   render: function(){
     this.$el.html('<p>hi</p>');
+    this.$el.css('left', this.model.attributes.x);
     return this;
   },
   initialize: function(){
@@ -20,6 +21,7 @@ app.BalloonView = Backbone.View.extend({
    // console.log('this balloon: ');
    // console.log(this.model);
     //console.log(this.model.relations);
+
     // only add if less than 3 weights per balloon
     var weight = new app.Weight({balloon: this.model, position: balloonPosition});
     app.weights.add(weight);
@@ -27,30 +29,18 @@ app.BalloonView = Backbone.View.extend({
   rise: function(){
     console.log("floating up");
     var that = this;
+    var currentY = parseInt(that.$el.css('bottom'));
+
     setTimeout(function(){
-      that.$el.css('margin-top', '-60px')
-    }, 3000);
-
-
-    // $(document).ready(function() {
-    //     $('html, body').animate({scrollTop: $(document).height()-$(window).height()}, 300);
-    //   var y = '';
-    //   var x = '';
-
-    //   $(document).mousemove(function(e) {
-    //     y = e.pageY;
-    //     x = e.pageX;
-    //   }).click(function(){
-    //     $('body').append(
-    //       $('<div class="balloons"><img src="balloonpurple.png" height="100"></></div>')
-    //       .css({'top': y, 'left': x})
-    //       .animate({ top: "-=2700"}, 10000, function()
-    //         { $(this).remove();
-    //         })
-    //       );
-    //   });
-    // });
-
+      that.$el.css('bottom', currentY + 50)
+    }, 1000);
+  },
+  fall: function(){
+    console.log("falling down");
+    var that = this;
+    setTimeout(function(){
+      that.$el.css('bottom', '0px')
+    }, 1000);
   }
 });
 
@@ -63,7 +53,7 @@ app.BalloonsView = Backbone.View.extend({
   },
   createOne: function(e){
     if(app.balloons.length <=2){
-      app.balloons.create({name: 'Bob'});
+      app.balloons.create({name: 'Bob', x: e.offsetX});
     } else {
       return;
     }
@@ -104,7 +94,6 @@ app.WeightsView = Backbone.View.extend({
     var position = weight.attributes.position;
     var carrier = $('.balloon')[position];
     if($(('.weight'), carrier).length >= 3){
-      // debugger
       //console.log(carrier); //always logs the right index
       return;
     } else {
