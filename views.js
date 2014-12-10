@@ -31,9 +31,16 @@ app.BalloonView = Backbone.View.extend({
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
 
+    var then = function(){
+      var newY = that.$el.css('bottom');
+      console.log(newY);
+    }
+
     setTimeout(function(){
-      that.$el.css('bottom', currentY + 50)
+      that.$el.css('bottom', currentY + 50);
+      then();
     }, 1000);
+
   },
   fall: function(){
     console.log("falling down");
