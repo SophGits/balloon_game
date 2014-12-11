@@ -1,26 +1,17 @@
 describe("Backbone Model tests", function(){
 
+  var container;
   beforeEach(function() {
-      var Balloon = Backbone.RelationalModel.extend({
-        relations: [{
-          type: Backbone.HasMany,
-          key: 'weights',
-          relatedModel: 'app.Weight',
-          reverseRelation: {
-            key: 'balloon',
-            // type: Backbone.HasOne,
-            includeInJSON: 'id'
-          }
-        }],
-        defaults: {
-          type: "balloon"
-        }
-      });
-   });
+    container = document.createElement('div');
+    app.balloonsView = new app.BalloonsView({el: container});
+  });
 
-  it("should create a new relational model object with a 'balloon' class", function(){
-      expect(Balloon.get("type")).toEqual("balloon");
-    });
+  it("clicking the container adds a new div with class balloon", function(){
+    expect($('.balloon', container).length).toEqual(0);
+    $(container).click();
+    expect($('.balloon', container).length).toEqual(1);
+  });
+
 });
 
 // describe("Backbone Collection tests", function(){
