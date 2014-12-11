@@ -20,6 +20,11 @@ app.Balloon = Backbone.RelationalModel.extend({
 
 app.Weight = Backbone.RelationalModel.extend({
   urlRoot: '/weight/',
+  // relations: [{
+  //   type: Backbone.HasOne,
+  //   key: 'balloon',
+  //   relatedModel: 'Balloon'
+  // }],
   defaults: {
     type: "weight"
   },
@@ -62,7 +67,7 @@ app.BalloonView = Backbone.View.extend({
   },
   initialize: function(){
     console.log('initialise individual view: ');
-    console.log(this);
+    console.log(this); // logs a new view fine, but then seems not to render
     this.model.on('change', this.render, this);
     this.model.on('destroy', this.remove, this);
   }
@@ -83,12 +88,12 @@ app.BalloonsView = Backbone.View.extend({
     console.log("this");
     console.log(this); // this is '.hi'
     console.log('balloon: ');
-    console.log(balloon);
-    var newballoon = new app.Balloon({name: 'Mark', key: 'weights', relatedModel: 'Weight', model: app.Balloon});
+    console.log(balloon); // mouse event (the click)
+    var newballoon = new app.Balloon({name: 'Bob'});
     var balloonView = new app.BalloonView({model: newballoon});
-    $('.hi div').append(balloonView.render());
+    $('.hi div').append(balloonView.render()); // does not happen
     console.log('balloonView: (from collection)');
-    console.log(balloonView);
+    console.log(balloonView); // new balloon view
   }
 });
 
