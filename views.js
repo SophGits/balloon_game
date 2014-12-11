@@ -21,11 +21,10 @@ app.BalloonView = Backbone.View.extend({
 
 app.BalloonsView = Backbone.View.extend({
   initialize: function(){
-    app.balloons.on('reset', this.addMany, this);
-    app.balloons.fetch(); // get from localstorage
+    app.balloons.on('add', this.addOne, this);
   },
   events: {
-    'click'   : 'addOne'
+    'click'   : 'createOne'
   },
   checkUnderThree: function(){
     console.log(app.balloonsView);
@@ -34,11 +33,13 @@ app.BalloonsView = Backbone.View.extend({
     console.log(app.balloons);
     // console.log(app.Balloons);
   },
-  addOne: function(e){
+  createOne: function(e){
+    app.balloons.create({name: 'Bob'});
+  },
+  addOne: function(balloon){
     this.checkUnderThree();
     //console.log(this); // this is '.hi'
-    var newballoon = app.balloons.create({name: 'Bob'});
-    var balloonView = new app.BalloonView({model: newballoon});
+    var balloonView = new app.BalloonView({model: balloon});
     this.$el.append(balloonView.render().el);
     // this.$('div').append(balloonView.render().el);
     //console.log('balloonView: (from collection)');
