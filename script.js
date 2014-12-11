@@ -38,7 +38,8 @@ app.Weight = Backbone.RelationalModel.extend({
 app.Balloons = Backbone.Collection.extend({
   model: app.Balloon,
   url: '#',
-  localStorage: new Store("balloonclick"),
+  localStorage: new Store("balloons"),
+  // localStorage: new Backbone.LocalStorage("Balloons"),
   save: function(){
     this.save();
   }
@@ -76,26 +77,38 @@ app.BalloonView = Backbone.View.extend({
 app.BalloonsView = Backbone.View.extend({
   el: '.container',
   initialize: function(){
-    app.balloons.on('add', this.addOne, this);
-    //app.balloons.fetch(); // get from localstorage
-    // console.log('initialise collection view:' );
-    // console.log(this);
+    app.balloons.on('reset', this.addMany, this);
+    app.balloons.fetch(); // get from localstorage
   },
   events: {
     'click'   : 'addOne'
   },
-  addOne: function(balloon){
+  checkUnderThree: function(){
+    console.log(app.balloonsView);
+    // console.log(app.balloonView);
+    // console.log(app.BalloonView);
+    console.log(app.balloons);
+    // console.log(app.Balloons);
+  },
+  addOne: function(e){
+    this.checkUnderThree();
     //console.log(this); // this is '.hi'
-    //console.log(balloon); // mouse event (the click)
-    var newballoon = new app.Balloon({name: 'Bob'});
+    var newballoon = app.balloons.create({name: 'Bob'});
     var balloonView = new app.BalloonView({model: newballoon});
     this.$el.append(balloonView.render().el);
     // this.$('div').append(balloonView.render().el);
     //console.log('balloonView: (from collection)');
     //console.log(balloonView); // new balloon view
+  },
+  addMany: function(balloons){
+    var self = this; // self is balloons view
+    balloons.forEach(function(balloon){
+      self.addOne(balloon);
+    });
   }
 });
 
 $(function() {
+  Backbone.history.start();
   app.balloonsView = new app.BalloonsView();
 });
