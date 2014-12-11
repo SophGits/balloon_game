@@ -19,21 +19,25 @@ app.BalloonView = Backbone.View.extend({
     var balloonPosition = this.model.collection.indexOf(this.model);
     //console.log(balloonPosition);
    // console.log('this balloon: ');
-   // console.log(this.model);
     //console.log(this.model.relations);
 
-    // only add if less than 3 weights per balloon
-    var weight = new app.Weight({balloon: this.model, position: balloonPosition});
-    app.weights.add(weight);
+    if($(('.weight'), this.$el).length < 3 ){
+      var weight = new app.Weight({balloon: this.model, position: balloonPosition});
+      app.weights.add(weight);
+      this.fall();
+    } else {
+      console.log("cannot attach another weight")
+    }
+
   },
   rise: function(){
-    console.log("floating up");
+    // console.log("floating up");
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
 
     var then = function(){
       var newY = that.$el.css('bottom');
-      console.log(newY);
+      // console.log(newY);
     }
 
     setTimeout(function(){
