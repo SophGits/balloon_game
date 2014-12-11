@@ -6,7 +6,7 @@ app.Balloon = Backbone.RelationalModel.extend({
   relations: [{
     type: Backbone.HasMany,
     key: 'weights',
-    relatedModel: 'Weight',
+    relatedModel: 'app.Weight',
     reverseRelation: {
       key: 'balloon',
       // type: Backbone.HasOne,
@@ -61,13 +61,13 @@ app.BalloonView = Backbone.View.extend({
   //   'click div'   : 'render'
   // },
   render: function(){
-    console.log("render inidivual balloon. (should return <div.balloon><p>hi</p></div>");
+    //console.log("render inidivual balloon. (should return <div.balloon><p>hi</p></div>");
     this.$el.html('<p>hi</p>');
     return this;
   },
   initialize: function(){
-    console.log('initialise individual view: ');
-    console.log(this); // logs a new view fine, but then seems not to render
+    //console.log('initialise individual view: ');
+    //console.log(this); // logs a new view fine, but then seems not to render
     this.model.on('change', this.render, this);
     this.model.on('destroy', this.remove, this);
   }
@@ -78,22 +78,20 @@ app.BalloonsView = Backbone.View.extend({
   initialize: function(){
     app.balloons.on('add', this.addOne, this);
     //app.balloons.fetch(); // get from localstorage
-    console.log('initialise collection view:' );
-    console.log(this);
+    // console.log('initialise collection view:' );
+    // console.log(this);
   },
   events: {
     'click div'   : 'addOne'
   },
   addOne: function(balloon){
-    console.log("this");
-    console.log(this); // this is '.hi'
-    console.log('balloon: ');
-    console.log(balloon); // mouse event (the click)
+    //console.log(this); // this is '.hi'
+    //console.log(balloon); // mouse event (the click)
     var newballoon = new app.Balloon({name: 'Bob'});
     var balloonView = new app.BalloonView({model: newballoon});
-    $('.hi div').append(balloonView.render()); // does not happen
-    console.log('balloonView: (from collection)');
-    console.log(balloonView); // new balloon view
+    this.$('div').append(balloonView.render().el);
+    //console.log('balloonView: (from collection)');
+    //console.log(balloonView); // new balloon view
   }
 });
 
