@@ -57,9 +57,9 @@ app.weights = new app.Weights();
 //_________Views_________________________________________________
 app.BalloonView = Backbone.View.extend({
   className: "balloon",
-  // events: {
-  //   'click div'   : 'render'
-  // },
+  events: {
+    'click div'   : 'render'
+  },
   render: function(){
     //console.log("render inidivual balloon. (should return <div.balloon><p>hi</p></div>");
     this.$el.html('<p>hi</p>');
@@ -74,7 +74,7 @@ app.BalloonView = Backbone.View.extend({
 });
 
 app.BalloonsView = Backbone.View.extend({
-  el: '.hi',
+  el: '.container',
   initialize: function(){
     app.balloons.on('add', this.addOne, this);
     //app.balloons.fetch(); // get from localstorage
@@ -82,14 +82,15 @@ app.BalloonsView = Backbone.View.extend({
     // console.log(this);
   },
   events: {
-    'click div'   : 'addOne'
+    'click'   : 'addOne'
   },
   addOne: function(balloon){
     //console.log(this); // this is '.hi'
     //console.log(balloon); // mouse event (the click)
     var newballoon = new app.Balloon({name: 'Bob'});
     var balloonView = new app.BalloonView({model: newballoon});
-    this.$('div').append(balloonView.render().el);
+    this.$el.append(balloonView.render().el);
+    // this.$('div').append(balloonView.render().el);
     //console.log('balloonView: (from collection)');
     //console.log(balloonView); // new balloon view
   }

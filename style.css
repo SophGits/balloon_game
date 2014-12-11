@@ -1,9 +1,9 @@
 body{
   background: aliceblue;
 }
-div{
-  /*height: 20px;*/
-  /*width: 30px;*/
+.container{
+  height: 250px;
+  width: 150px;
   border: 1px dashed blue;
   margin: 10px;
   padding: 20px;
@@ -11,4 +11,8 @@ div{
 .balloon{
   background: pink;
   border: 1px dashed gold;
+  border-radius: 2px;
+  width: 50px;
+  height: 30px;
+  margin: 4px;
 }
