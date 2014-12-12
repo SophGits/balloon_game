@@ -25,11 +25,11 @@ app.Weight = Backbone.RelationalModel.extend({
   // }],
   defaults: {
     type: "weight"
-  },
-  create: function(relatedBalloon){
-    this.balloon = relatedBalloon;
-    this.save();
   }
+  // create: function(relatedBalloon){
+  //   // this.balloon = relatedBalloon;
+  //   this.save();
+  // }
 });
 
 
