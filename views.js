@@ -46,3 +46,28 @@ app.BalloonsView = Backbone.View.extend({
     });
   }
 });
+
+
+
+app.WeightView = Backbone.View.extend({
+  className: "weight",
+  render: function(){
+    this.$el.html('<span>w</span>');
+    return this;
+  },
+  initialize: function(){
+    this.model.on('change', this.render, this);
+    this.model.on('destroy', this.remove, this);
+  }
+});
+
+app.WeightsView = Backbone.View.extend({
+  initialize: function(){
+    app.weights.on('add', this.addOne, this);
+  },
+  addOne: function(weight){
+    var weightView = new app.WeightView({model: weight});
+    this.$el.append(weightView.render().el);
+  }
+});
+
