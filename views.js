@@ -15,7 +15,8 @@ app.BalloonView = Backbone.View.extend({
     this.model.on('destroy', this.remove, this);
   },
   attachWeight: function(e){
-    app.weights.create({balloon: this}); // Probably not passing in balloon relation properly to the new weight model
+    var weight = new app.Weight({ balloon: this.model });
+    app.weights.add(weight);
   }
 });
 
