@@ -14,3 +14,15 @@ Drag off a weight to remove it
 Clicking air blows it horizontally
 
 One balloon has many weights
+
+
+
+
+var weight = app.weights.at(0)
+
+weight.getRelations()[0]
+r {instance: r, reverseRelation: Object, options: Object, key: "balloon", keySource: "balloon"…}
+
+
+var myIndex = this.model.collection.indexOf(this.model);
+var nextModel = this.model.collection.at(myIndex+1);

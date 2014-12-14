@@ -15,7 +15,9 @@ app.BalloonView = Backbone.View.extend({
     this.model.on('destroy', this.remove, this);
   },
   attachWeight: function(e){
-    var weight = new app.Weight({ balloon: this.model });
+    var balloonPosition = this.model.collection.indexOf(this.model);
+    console.log(balloonPosition);
+    var weight = new app.Weight({balloon: this.model, position: balloonPosition});
     app.weights.add(weight);
   }
 });
@@ -66,8 +68,10 @@ app.WeightsView = Backbone.View.extend({
     app.weights.on('add', this.addOne, this);
   },
   addOne: function(weight){
+    var position = weight.attributes.position;
     var weightView = new app.WeightView({model: weight});
-    this.$el.append(weightView.render().el);
+    var carrier = $('.balloon')[position];
+    $(carrier).append(weightView.render().el);
   }
 });
 
