@@ -71,13 +71,14 @@ app.WeightsView = Backbone.View.extend({
     var position = weight.attributes.position;
     var weightView = new app.WeightView({model: weight});
     var carrier = $('.balloon')[position];
-    if((carrier, $('.weight')).length >= 3){
-      debugger
+    if(($('.weight'), carrier).length >= 3){
+      // debugger
       console.log("more than 3");
       console.log(carrier); //always logs the right index
       return;
     } else {
       console.log("less than 3 weights"); // only logs until one is full up; then never again
+       console.log(carrier);
       return $(carrier).append(weightView.render().el);
     }
   }
