@@ -2,8 +2,8 @@ body{
   background: aliceblue;
 }
 .container{
-  height: 250px;
-  width: 350px;
+  height: 100%;
+  width: 90%;
   border: 1px dashed blue;
   margin: 10px;
   padding: 20px;

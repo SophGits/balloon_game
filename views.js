@@ -30,30 +30,61 @@ app.BalloonView = Backbone.View.extend({
     }
 
   },
-  rise: function(){
+  rise: function(speed){
     // console.log("floating up");
+    console.log();
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
+      console.log($('.container').height());
+      console.log(currentY);
+        // var then = function(){
+        // //   var newY = that.$el.css('bottom');
+        // //   console.log(newY);
+        //    return currentY += 1;
+        // }
 
-    var then = function(){
-      var newY = that.$el.css('bottom');
-      // console.log(newY);
-    }
 
-    setTimeout(function(){
-      that.$el.css('bottom', currentY + 80);
-      then();
-    }, 1000);
+      var timer = 100;
+      var upordown;
+       if(speed == "fast"){
+         timer = 30;
+         upordown = function(){return currentY +=1}
+       } else if(speed == "slow"){
+         timer = 100;
+         upordown = function(){return currentY +=1}
+       } else if(speed=="sink"){
+        timer = 90;
+        upordown = function(){return currentY -=1}
+       }
+
+      var go2 = function(){
+        if(currentY <= $('.container').height()){
+          setTimeout(function(){
+            that.$el.css('bottom', currentY);
+            return upordown();
+          }, 20);
+        } else {
+          return;
+        }
+      }
+
+      var go = function(){
+        setInterval(function(){
+            go2();
+          }, timer);
+        }
+        go();
 
   },
   fall: function(){
-    console.log("falling down");
-    var that = this;
-    var currentY = parseInt(that.$el.css('bottom'));
+  //   console.log("falling down");
+  //   var that = this;
+  //   var currentY = parseInt(that.$el.css('bottom'));
 
-    setTimeout(function(){
-      that.$el.css('bottom', currentY - 30);
-    }, 1000);
+  //   setTimeout(function(){
+  //     that.$el.css('bottom', currentY - 30);
+  //   }, 1000);
+  this.rise("sink");
   }
 });
 
@@ -74,7 +105,7 @@ app.BalloonsView = Backbone.View.extend({
   addOne: function(balloon){
     var balloonView = new app.BalloonView({model: balloon});
     this.$el.append(balloonView.render().el);
-    balloonView.rise();
+    balloonView.rise("fast");
     // this.$('div').append(balloonView.render().el);
   },
   addMany: function(balloons){
@@ -107,10 +138,8 @@ app.WeightsView = Backbone.View.extend({
     var position = weight.attributes.position;
     var carrier = $('.balloon')[position];
     if($(('.weight'), carrier).length >= 3){
-      //console.log(carrier); //always logs the right index
       return;
     } else {
-      // console.log("less than 3 weights");
       var weightView = new app.WeightView({model: weight});
       return $(carrier).append(weightView.render().el);
     }
