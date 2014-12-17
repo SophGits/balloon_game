@@ -24,29 +24,47 @@ app.BalloonView = Backbone.View.extend({
     if($(('.weight'), this.$el).length < 3 ){
       var weight = new app.Weight({balloon: this.model, position: balloonPosition});
       app.weights.add(weight);
-      this.float("down");
+      this.float();
     } else {
       console.log("cannot attach another weight")
     }
 
   },
-  float: function(direction){
+  float: function(){
     // console.log("floating up");
 
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
 
-    var timer = 30;
+    var timer;
     var upordown;
     var go;
 
-    if(direction == "up"){
-      clearInterval(this.go);
-      upordown = function(){return currentY +=1}
-    } else if(direction=="down"){
-      clearInterval(this.go);
-      upordown = function(){return currentY -=1}
-    }
+
+        if($(('.weight'), this.$el).length === 0 ){
+          console.log("0 attached");
+            clearInterval(this.go);
+            upordown = function(){return currentY +=1}
+            timer = 20;
+        } else if($(('.weight'), this.$el).length === 1 ){
+          console.log("1 attached");
+            clearInterval(this.go);
+            upordown = function(){return currentY +=1}
+            timer = 40;
+        } else if($(('.weight'), this.$el).length === 2 ){
+          console.log("2 attached");
+            clearInterval(this.go);
+            upordown = function(){return currentY +=1}
+            timer = 1000;
+        } else if($(('.weight'), this.$el).length === 3 ){
+          console.log("3 attached");
+            clearInterval(this.go);
+            upordown = function(){return currentY -=1}
+            timer = 50;
+        } else {
+          console.log("wtf");
+        }
+
 
     this.go = setInterval(function(){go2();}, timer);
 
@@ -70,8 +88,6 @@ app.BalloonsView = Backbone.View.extend({
     'click'   : 'createOne'
   },
   createOne: function(e){
-    console.log(e)
-
     if(app.balloons.length <=2 && e.target.className == 'container'){
       app.balloons.create({name: 'Bob', x: e.offsetX});
     } else {
@@ -81,7 +97,7 @@ app.BalloonsView = Backbone.View.extend({
   addOne: function(balloon){
     var balloonView = new app.BalloonView({model: balloon});
     this.$el.append(balloonView.render().el);
-    balloonView.float("up");
+    balloonView.float();
     // this.$('div').append(balloonView.render().el);
   },
   addMany: function(balloons){
