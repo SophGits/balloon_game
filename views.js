@@ -24,13 +24,13 @@ app.BalloonView = Backbone.View.extend({
     if($(('.weight'), this.$el).length < 3 ){
       var weight = new app.Weight({balloon: this.model, position: balloonPosition});
       app.weights.add(weight);
-      this.fall();
+      this.float("down");
     } else {
       console.log("cannot attach another weight")
     }
 
   },
-  rise: function(direction){
+  float: function(direction){
     // console.log("floating up");
 
     var that = this;
@@ -41,14 +41,14 @@ app.BalloonView = Backbone.View.extend({
     var go;
 
     if(direction == "up"){
-      clearInterval(go);
+      clearInterval(this.go);
       upordown = function(){return currentY +=1}
-    } else if(direction=="sink"){
-      clearInterval(go);
+    } else if(direction=="down"){
+      clearInterval(this.go);
       upordown = function(){return currentY -=1}
     }
 
-    go = setInterval(function(){go2();}, timer);
+    this.go = setInterval(function(){go2();}, timer);
 
     var go2 = function(){
       if(currentY <= $('.container').height() && currentY >= 1){
@@ -59,16 +59,6 @@ app.BalloonView = Backbone.View.extend({
       }
     }
 
-  },
-  fall: function(){
-  //   console.log("falling down");
-  //   var that = this;
-  //   var currentY = parseInt(that.$el.css('bottom'));
-
-  //   setTimeout(function(){
-  //     that.$el.css('bottom', currentY - 30);
-  //   }, 1000);
-  this.rise("sink");
   }
 });
 
@@ -89,7 +79,7 @@ app.BalloonsView = Backbone.View.extend({
   addOne: function(balloon){
     var balloonView = new app.BalloonView({model: balloon});
     this.$el.append(balloonView.render().el);
-    balloonView.rise("up");
+    balloonView.float("up");
     // this.$('div').append(balloonView.render().el);
   },
   addMany: function(balloons){
