@@ -14,25 +14,24 @@ app.BalloonView = Backbone.View.extend({
   initialize: function(){
     this.model.on('change', this.render, this);
     this.model.on('destroy', this.remove, this);
+    this.model.on('remove:weights', this.float, this);
   },
   attachWeight: function(e){
-    var balloonPosition = this.model.collection.indexOf(this.model);
-    //console.log(balloonPosition);
-   // console.log('this balloon: ');
-    //console.log(this.model.relations);
-
-    if($(('.weight'), this.$el).length < 3 ){
-      var weight = new app.Weight({balloon: this.model, position: balloonPosition});
-      app.weights.add(weight);
-      this.float();
+    if(e.target.className !== "balloon"){
+      return;
     } else {
-      console.log("cannot attach another weight")
+      var balloonPosition = this.model.collection.indexOf(this.model);
+      if($(('.weight'), this.$el).length < 3 ){
+        var weight = new app.Weight({balloon: this.model, position: balloonPosition});
+        app.weights.add(weight);
+        this.float();
+      } else {
+        console.log("cannot attach another weight")
+      }
     }
-
   },
   float: function(){
     // console.log("floating up");
-
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
 
@@ -40,34 +39,30 @@ app.BalloonView = Backbone.View.extend({
     var upordown;
     var go;
 
-
-        if($(('.weight'), this.$el).length === 0 ){
-          console.log("0 attached");
-            clearInterval(this.go);
-            upordown = function(){return currentY +=1}
-            timer = 20;
-        } else if($(('.weight'), this.$el).length === 1 ){
-          console.log("1 attached");
-            clearInterval(this.go);
-            upordown = function(){return currentY +=1}
-            timer = 40;
-        } else if($(('.weight'), this.$el).length === 2 ){
-          console.log("2 attached");
-            clearInterval(this.go);
-            upordown = function(){return currentY +=1}
-            timer = 1000;
-        } else if($(('.weight'), this.$el).length === 3 ){
-          console.log("3 attached");
-            clearInterval(this.go);
-            upordown = function(){return currentY -=1}
-            timer = 50;
-        } else {
-          console.log("wtf");
-        }
-
-
+    if($(('.weight'), this.$el).length === 0 ){
+      console.log("0 attached");
+        clearInterval(this.go);
+        upordown = function(){return currentY +=1}
+        timer = 20;
+    } else if($(('.weight'), this.$el).length === 1 ){
+      console.log("1 attached");
+        clearInterval(this.go);
+        upordown = function(){return currentY +=1}
+        timer = 40;
+    } else if($(('.weight'), this.$el).length === 2 ){
+      console.log("2 attached");
+        clearInterval(this.go);
+        upordown = function(){return currentY +=1}
+        timer = 1000;
+    } else if($(('.weight'), this.$el).length === 3 ){
+      console.log("3 attached");
+        clearInterval(this.go);
+        upordown = function(){return currentY -=1}
+        timer = 50;
+    } else {
+      console.log("wtf");
+    }
     this.go = setInterval(function(){go2();}, timer);
-
     var go2 = function(){
       if(currentY <= $('.container').height() && currentY >= 1){
           that.$el.css('bottom', currentY);
@@ -76,7 +71,6 @@ app.BalloonView = Backbone.View.extend({
         return;
       }
     }
-
   }
 });
 
@@ -112,6 +106,13 @@ app.BalloonsView = Backbone.View.extend({
 
 app.WeightView = Backbone.View.extend({
   className: "weight",
+  events: {
+    'dblclick' :  'destroy',
+    'span dblclick' :  'destroy'
+  },
+  destroy: function(){
+    this.model.destroy();
+  },
   render: function(){
     this.$el.html('<span>w</span>');
     return this;
