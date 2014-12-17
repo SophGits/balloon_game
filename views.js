@@ -70,7 +70,9 @@ app.BalloonsView = Backbone.View.extend({
     'click'   : 'createOne'
   },
   createOne: function(e){
-    if(app.balloons.length <=2){
+    console.log(e)
+
+    if(app.balloons.length <=2 && e.target.className == 'container'){
       app.balloons.create({name: 'Bob', x: e.offsetX});
     } else {
       return;
