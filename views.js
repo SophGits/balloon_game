@@ -32,48 +32,32 @@ app.BalloonView = Backbone.View.extend({
   },
   rise: function(speed){
     // console.log("floating up");
-    console.log();
+
     var that = this;
     var currentY = parseInt(that.$el.css('bottom'));
-      console.log($('.container').height());
-      console.log(currentY);
-        // var then = function(){
-        // //   var newY = that.$el.css('bottom');
-        // //   console.log(newY);
-        //    return currentY += 1;
-        // }
 
+    var timer = 30;
+    var upordown;
+    var go;
 
-      var timer = 100;
-      var upordown;
-       if(speed == "fast"){
-         timer = 30;
-         upordown = function(){return currentY +=1}
-       } else if(speed == "slow"){
-         timer = 100;
-         upordown = function(){return currentY +=1}
-       } else if(speed=="sink"){
-        timer = 90;
-        upordown = function(){return currentY -=1}
-       }
+    if(speed == "fast"){
+      clearInterval(go);
+      upordown = function(){return currentY +=1}
+    } else if(speed=="sink"){
+      clearInterval(go);
+      upordown = function(){return currentY -=1}
+    }
 
-      var go2 = function(){
-        if(currentY <= $('.container').height()){
-          setTimeout(function(){
-            that.$el.css('bottom', currentY);
-            return upordown();
-          }, 20);
-        } else {
-          return;
-        }
+    go = setInterval(function(){go2();}, timer);
+
+    var go2 = function(){
+      if(currentY <= $('.container').height() && currentY >= 1){
+          that.$el.css('bottom', currentY);
+          return upordown();
+      } else {
+        return;
       }
-
-      var go = function(){
-        setInterval(function(){
-            go2();
-          }, timer);
-        }
-        go();
+    }
 
   },
   fall: function(){
