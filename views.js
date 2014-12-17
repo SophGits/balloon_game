@@ -30,7 +30,7 @@ app.BalloonView = Backbone.View.extend({
     }
 
   },
-  rise: function(speed){
+  rise: function(direction){
     // console.log("floating up");
 
     var that = this;
@@ -40,10 +40,10 @@ app.BalloonView = Backbone.View.extend({
     var upordown;
     var go;
 
-    if(speed == "fast"){
+    if(direction == "up"){
       clearInterval(go);
       upordown = function(){return currentY +=1}
-    } else if(speed=="sink"){
+    } else if(direction=="sink"){
       clearInterval(go);
       upordown = function(){return currentY -=1}
     }
@@ -89,7 +89,7 @@ app.BalloonsView = Backbone.View.extend({
   addOne: function(balloon){
     var balloonView = new app.BalloonView({model: balloon});
     this.$el.append(balloonView.render().el);
-    balloonView.rise("fast");
+    balloonView.rise("up");
     // this.$('div').append(balloonView.render().el);
   },
   addMany: function(balloons){
