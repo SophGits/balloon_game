@@ -19,6 +19,7 @@ body{
   display: inline-block;
   position: absolute;
   bottom: 10;
+  cursor: pointer;
 }
 .balloon:after{
   content: "";
@@ -46,6 +47,7 @@ body{
   border-radius: 10px;
   background: darkblue;
   margin-left: -1px;
+  cursor: crosshair;
 }
 /*.weight.first{
   position: absolute;

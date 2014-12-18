@@ -43,22 +43,22 @@ app.BalloonView = Backbone.View.extend({
       console.log("0 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
-        timer = 20;
+        timer = 10;
     } else if($(('.weight'), this.$el).length === 1 ){
       console.log("1 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
-        timer = 40;
+        timer = 30;
     } else if($(('.weight'), this.$el).length === 2 ){
       console.log("2 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
-        timer = 1000;
+        timer = 800;
     } else if($(('.weight'), this.$el).length === 3 ){
       console.log("3 attached");
         clearInterval(this.go);
         upordown = function(){return currentY -=1}
-        timer = 50;
+        timer = 40;
     } else {
       console.log("wtf");
     }
