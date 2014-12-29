@@ -7,7 +7,7 @@ app.BalloonView = Backbone.View.extend({
     'click'   : 'attachWeight'
   },
   render: function(){
-    this.$el.html('<p>hi</p>');
+    this.$el.html('<p>Yay!</p>');
     this.$el.css('left', this.model.attributes.x);
     return this;
   },
@@ -69,23 +69,30 @@ app.BalloonView = Backbone.View.extend({
     }
     this.go = setInterval(function(){go2();}, timer);
     var go2 = function(){
-      if(currentY <= $('.container').height() && currentY >= 1){
-          if( currentY >= parseInt(target.css('bottom')) - $('.balloon').height() &&
-              currentY <= parseInt(target.css('bottom')) + target.height()
-            ){
-            that.$el.removeClass('red').addClass('red');
-          } else {
-            that.$el.removeClass('red');
-          }
-
-          that.$el.css('bottom', currentY);
-          return upordown();
-      } else if(currentY >= $('.container').height()){
-        that.destroy();
-      } else if(currentY == 0){
-        that.destroy();
-      } else {
+      if($('.red').length == 3){
+        clearInterval(that.go);
+        app.endgame();
         return;
+      } else {
+
+        if(currentY <= $('.container').height() && currentY >= 1){
+            if( currentY >= parseInt(target.css('bottom')) - $('.balloon').height() &&
+                currentY <= parseInt(target.css('bottom')) + target.height()
+              ){
+              that.$el.removeClass('red').addClass('red');
+            } else {
+              that.$el.removeClass('red');
+            }
+
+            that.$el.css('bottom', currentY);
+            return upordown();
+        } else if(currentY >= $('.container').height()){
+          that.destroy();
+        } else if(currentY == 0){
+          that.destroy();
+        } else {
+          return;
+        }
       }
     }
   }

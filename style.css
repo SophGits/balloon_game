@@ -1,5 +1,6 @@
 body{
   background: aliceblue;
+  font-family: sans-serif;
 }
 .container{
   height: 90%;
@@ -36,7 +37,15 @@ body{
   -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
   transform: rotate(45deg);
 }
-.balloon p{margin: 0; position: relative; left: 15px; top: 2px; color: lightgray;}
+.balloon p{
+  margin: 0;
+  position: relative;
+  left: 8px;
+  font-size: 16px;
+  top: 4px;
+  /*color: lightgray;*/
+  color: #0489B1;
+}
 .weight{
   color: gold;
   display: inline-block;
@@ -56,10 +65,37 @@ body{
 }*/
 
 .target{
-  width: 80px;
-  height: 80px;
+  width: 98%;
+  left: 1%;
+  height: 40px;
   background: lightgreen;
+  opacity: 0.5;
   position: absolute;
 }
 .red{border: 2px solid red;}
 .blue{border: 3px solid blue;}
+.gold{border: 3px solid gold; background: yellow;}
+
+
+/*
+ } else if()){
+        that.$el.addClass('red');
+        // that.$el.addClass('blue');*/
+
+.win{
+  font-size: 240px;
+  margin: auto auto;
+  color: gold;
+  width: 500px;
+  display: block;
+  z-index: 20;
+  display: none;
+}
+
+.smallwin{
+  display: inline-block;
+  color: gold;
+  font-size: 20px;
+  top: -400px;
+  position: relative;
+}
