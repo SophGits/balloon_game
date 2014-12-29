@@ -42,6 +42,8 @@ app.BalloonView = Backbone.View.extend({
     var upordown;
     var go;
 
+    var target = $('.target');
+
     if($(('.weight'), this.$el).length === 0 ){
       // console.log("0 attached");
         clearInterval(this.go);
@@ -68,12 +70,19 @@ app.BalloonView = Backbone.View.extend({
     this.go = setInterval(function(){go2();}, timer);
     var go2 = function(){
       if(currentY <= $('.container').height() && currentY >= 1){
+          if( currentY >= parseInt(target.css('bottom')) - $('.balloon').height() &&
+              currentY <= parseInt(target.css('bottom')) + target.height()
+            ){
+            that.$el.removeClass('red').addClass('red');
+          } else {
+            that.$el.removeClass('red');
+          }
+
           that.$el.css('bottom', currentY);
           return upordown();
       } else if(currentY >= $('.container').height()){
-        that.$el.addClass('red');
+        that.destroy();
       } else if(currentY == 0){
-        // that.$el.addClass('blue');
         that.destroy();
       } else {
         return;

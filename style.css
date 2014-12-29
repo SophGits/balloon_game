@@ -55,6 +55,11 @@ body{
   top: 15px;
 }*/
 
-
+.target{
+  width: 80px;
+  height: 80px;
+  background: lightgreen;
+  position: absolute;
+}
 .red{border: 2px solid red;}
 .blue{border: 3px solid blue;}
