@@ -38,19 +38,12 @@ app.Weight = Backbone.RelationalModel.extend({
 app.Balloons = Backbone.Collection.extend({
   model: app.Balloon,
   url: '#',
-  localStorage: new Store("balloons"),
-  // localStorage: new Backbone.LocalStorage("Balloons"),
-  save: function(){
-    this.save();
-  }
+  localStorage: new Store("balloons")
 });
 app.balloons = new app.Balloons();
 
 app.Weights = Backbone.Collection.extend({
   model: app.Weight,
-  url: '#',
-  save: function(){
-    this.save();
-  }
+  url: '#'
 });
 app.weights = new app.Weights();

@@ -16,6 +16,9 @@ app.BalloonView = Backbone.View.extend({
     this.model.on('destroy', this.remove, this);
     this.model.on('remove:weights', this.float, this);
   },
+  destroy: function(){
+    this.model.destroy();
+  },
   attachWeight: function(e){
     if(e.target.className !== "balloon"){
       return;
@@ -40,22 +43,22 @@ app.BalloonView = Backbone.View.extend({
     var go;
 
     if($(('.weight'), this.$el).length === 0 ){
-      console.log("0 attached");
+      // console.log("0 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
         timer = 10;
     } else if($(('.weight'), this.$el).length === 1 ){
-      console.log("1 attached");
+      // console.log("1 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
         timer = 30;
     } else if($(('.weight'), this.$el).length === 2 ){
-      console.log("2 attached");
+      // console.log("2 attached");
         clearInterval(this.go);
         upordown = function(){return currentY +=1}
         timer = 800;
     } else if($(('.weight'), this.$el).length === 3 ){
-      console.log("3 attached");
+      // console.log("3 attached");
         clearInterval(this.go);
         upordown = function(){return currentY -=1}
         timer = 40;
@@ -67,6 +70,11 @@ app.BalloonView = Backbone.View.extend({
       if(currentY <= $('.container').height() && currentY >= 1){
           that.$el.css('bottom', currentY);
           return upordown();
+      } else if(currentY >= $('.container').height()){
+        that.$el.addClass('red');
+      } else if(currentY == 0){
+        // that.$el.addClass('blue');
+        that.destroy();
       } else {
         return;
       }
@@ -83,7 +91,8 @@ app.BalloonsView = Backbone.View.extend({
   },
   createOne: function(e){
     if(app.balloons.length <=2 && e.target.className == 'container'){
-      app.balloons.create({name: 'Bob', x: e.offsetX});
+      var balloon = new app.Balloon({name: 'Bob', x: e.offsetX});
+      app.balloons.add(balloon);
     } else {
       return;
     }
