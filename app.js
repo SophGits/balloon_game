@@ -9,7 +9,7 @@ $(function() {
     $('.container').append(target);
 
     // var bottom = ($('.container').height()) * Math.random();
-    var bottom = Math.floor( ( Math.random() * ( $('.container').height() - $(this).height() ) ) + 200);
+    var bottom = Math.floor( ( Math.random() * ( $('.container').height() - $(this).height() ) ) + 300);
 
     // var left = ($('.container').width()) * Math.random();
     // var left = Math.floor(Math.random() * $('.container').width() - 50 );
@@ -22,6 +22,7 @@ $(function() {
 
   app.endgame = function(){
     $('.win').show();
+    // $('.cloud').show();
     console.log("win");
     $('.balloon').addClass('gold');
     // for(i=0; i <= 340; i++){
